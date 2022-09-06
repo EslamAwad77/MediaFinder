@@ -12,14 +12,26 @@ extension RegisterVC{
         let loginVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
-     func fillUserObject(){
-        user1.name = txtFieldUserName.text!
-        user1.email = txtFieldEmail.text!
-        user1.password = txtFieldPassword.text!
-        user1.phone = txtFieldPhoneNumber.text!
-        user1.address = txtFieldAddress.text!
-        user1.userImage = ImageCodable(withImage: imgViewUser.image!)
-        
+//     func fillUserObject(){
+//        user1.name = txtFieldUserName.text!
+//        user1.email = txtFieldEmail.text!
+//        user1.password = txtFieldPassword.text!
+//        user1.phone = txtFieldPhoneNumber.text!
+//        user1.address = txtFieldAddress.text!
+//        user1.userImage = ImageCodable(withImage: imgViewUser.image!)
+//
+//    }
+    
+    func encodeUserToData(user: UserModel) -> Data? {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(user)
+            return data
+
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
     }
     // func SetDataOnCashMemory(){
         //UserDefaults.standard.set(txtFieldUserName.text, forKey: "UserName")
@@ -100,9 +112,13 @@ extension RegisterVC{
      func registerTapped(){
         if isDataEntered(){
             if isDataValid(){
-                fillUserObject()
-                UserDefaultsManager.shared.SetDataOnCashMemory(user: user1)
-                goToLogin()
+                
+                //UserDefaultsManager.shared.SetDataOnCashMemory(user: user1)
+                let user = UserModel(name: txtFieldUserName.text!, email: txtFieldEmail.text!, password: txtFieldPassword.text!, phone: txtFieldPhoneNumber.text!, address: txtFieldAddress.text!, userImage: ImageCodable(withImage: imgViewUser.image!))
+                if let userData = encodeUserToData(user: user) {
+                    SQlManager.sharedObject().insertUser(user: userData)
+                    goToLogin()
+                }
             }
         } else {
             print("please enter data")

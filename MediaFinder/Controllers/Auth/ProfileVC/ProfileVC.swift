@@ -19,7 +19,8 @@ class ProfileVC: UIViewController {
     //var phone: String!
     //var address: String!
     var isLogedIn: Bool = true
-    
+     var user1: UserModel!
+
     //-------------------outlet------------------------
     @IBOutlet weak var imgViewUserProfile: UIImageView!
     @IBOutlet weak var lblUserName: MarqueeLabel!

@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        let email = UserDefaults.standard.object(forKey: "user1")
-        let isLogedIn = UserDefaultsManager.shared.isLogedIn
+        SQlManager.sharedObject().setupConnection()
+        let email = UserDefaults.standard.object(forKey: "email")
+        let isLogedIn = UserDefaultsManager.shared().isLogedIn
         if email != nil{
             if isLogedIn {
                 goToMediaVC()

@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct MediaResponse: Decodable{
+struct MediaResponse: Codable{
     var resultCount: Int
     var results: [Media]
 }
 
-struct Media: Decodable{
+struct Media: Codable{
     var artistName: String?
     var trackName: String?
     var artworkUrl: String!
@@ -23,4 +23,9 @@ struct Media: Decodable{
         case artistName, trackName, previewUrl, longDescription
         case artworkUrl = "artworkUrl100"
     }
+}
+
+struct MediaData: Codable{
+    var mediaType: String!
+    var mediaData: [Media]
 }

@@ -43,11 +43,11 @@ class LoginVC: UIViewController {
      func setup(){
         self.navigationItem.title = "Sign In"
         //UserDefaults.standard.set(false, forKey: "isLogedIn") // make a flag
-         UserDefaultsManager.shared.isLogedIn = false
-         if let user = UserDefaultsManager.shared.getUserDataFromCash() {
-            self.email = user.email
-            self.password = user.password
-        }
+         UserDefaultsManager.shared().isLogedIn = false
+//         if let user = UserDefaultsManager.shared().getUserDataFromCash() {
+//            self.email = user.email
+//            self.password = user.password
+//        }
 //        print(self.email)
 //        print(self.password)
     }

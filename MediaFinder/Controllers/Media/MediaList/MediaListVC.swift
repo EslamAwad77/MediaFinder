@@ -3,7 +3,7 @@
 //  MediaFinder
 //
 //  Created by eslam awad elsayed awad on 12/08/2022.
-//
+
 
 import AVKit
 import PullToRefresh
@@ -72,12 +72,18 @@ extension MediaListVC{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        let media = MediaData(mediaType: segmantedValue, mediaData: mediaList)
+        guard let data = encodeMediaToData(media: media) else {
+            print("no data entered.")
+            return
+        }
+        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
     }
 }
 
 extension MediaListVC{
     func setupUI(){
-        UserDefaultsManager.shared.isLogedIn = true
+        UserDefaultsManager.shared().isLogedIn = true
         self.loadingData()
         self.pullTorefresh()
         self.tableView.delegate = self
@@ -88,15 +94,19 @@ extension MediaListVC{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
     }
-    
+}
+
+extension MediaListVC{
     func goToProfile(){
         let profileVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
 }
 
+
 extension MediaListVC{
     func loadingData(){
+        self.activityLoadingPage.startAnimating()
         self.tableView.alpha = 0
         self.viewReloading.alpha = 0
     }
@@ -114,6 +124,7 @@ extension MediaListVC{
     func showError(){
         self.tableView.alpha = 0
         self.viewReloading.alpha = 1
+        self.imgNoData.alpha = 0
         self.activityLoadingPage.alpha = 0
         self.activityLoadingPage.isHidden = true
     }
@@ -122,6 +133,7 @@ extension MediaListVC{
 extension MediaListVC{
     func getAPI(){
         MediaAPI.loadMediaAPI(term: searchBar.text!, media: segmantedValue) { error, response in
+           
             if error != nil {
                 print(error!)
                 self.showError()
@@ -156,6 +168,7 @@ extension MediaListVC: UISearchBarDelegate{
         searchBar.text = ""
         self.mediaList.removeAll()
         self.imgNoData.alpha = 1
+        self.imgNoData.isHidden = false
         self.tableView.reloadData()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -178,6 +191,45 @@ extension MediaListVC {
         self.tableView.es.addInfiniteScrolling { [weak self] in
             guard let self = self else { return }
             self.getAPI()
+        }
+    }
+}
+
+extension MediaListVC{
+    private func encodeMediaToData(media: MediaData) -> Data? {
+        do {
+            let encoder = JSONEncoder()
+            let mediaData = try encoder.encode(media)
+            return mediaData
+        } catch {
+            print("Unable to Encode mediaData (\(error))")
+        }
+        return nil
+    }
+    
+}
+
+extension MediaListVC{
+    private func mediaWillAppear() {
+        if let data = SQlManager.sharedObject().getMediaData(email: UserDefaultsManager.shared().email) {
+            self.mediaList = data.mediaData
+            setupSegment(mediaType: data.mediaType ?? "all")
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension MediaListVC {
+    private func setupSegment(mediaType: String){
+        switch mediaType {
+        case "tvShow":
+            controller.selectedSegmentIndex = 1
+        case "music":
+            controller.selectedSegmentIndex = 2
+        case "movie":
+            controller.selectedSegmentIndex = 3
+        default:
+            controller.selectedSegmentIndex = 0
         }
     }
 }

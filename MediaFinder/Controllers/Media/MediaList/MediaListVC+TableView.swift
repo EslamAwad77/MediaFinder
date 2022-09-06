@@ -1,9 +1,7 @@
 //
 //  MediaListVC+TableView.swift
 //  MediaFinder
-//
 //  Created by eslam awad elsayed awad on 20/08/2022.
-//
 
 import AVKit
 
@@ -15,7 +13,52 @@ extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath) as! MediaCell
         let item = mediaList[indexPath.row]
-        cell.cellConfig(item)
+        if self.segmantedValue == "all"{
+            if item.longDescription == nil {
+                cell.lblMediaName.text = item.trackName ?? "No Track Name"
+                cell.lblArtistName.text = item.artistName ?? "No No artist Name"
+                cell.imgMedia.kf.indicatorType = .activity
+                if let url = URL(string: item.artworkUrl){
+                    cell.imgMedia.kf.setImage(with: url)
+                }
+            } else if item.artistName == nil {
+                cell.lblMediaName.text = item.longDescription ?? "No longDescription"
+                cell.lblArtistName.text = item.trackName ?? "No Track Name"
+                cell.imgMedia.kf.indicatorType = .activity
+                if let url = URL(string: item.artworkUrl){
+                    cell.imgMedia.kf.setImage(with: url)
+                }
+            }else if item.trackName == nil{
+                cell.lblMediaName.text = item.longDescription ?? "No longDescription"
+                cell.lblArtistName.text = item.artistName ?? "No No artist Name"
+                cell.imgMedia.kf.indicatorType = .activity
+                if let url = URL(string: item.artworkUrl){
+                    cell.imgMedia.kf.setImage(with: url)
+                }
+            }
+          
+        } else if self.segmantedValue == "tvShow"{
+            cell.lblMediaName.text = item.longDescription ?? "No Track Name"
+            cell.lblArtistName.text = item.artistName ?? "No artist Name"
+            cell.imgMedia.kf.indicatorType = .activity
+            if let url = URL(string: item.artworkUrl){
+                cell.imgMedia.kf.setImage(with: url)
+            }
+        } else if self.segmantedValue == "music"{
+            cell.lblMediaName.text = item.trackName ?? "No Track Name"
+            cell.lblArtistName.text = item.artistName ?? "No No artist Name"
+            cell.imgMedia.kf.indicatorType = .activity
+            if let url = URL(string: item.artworkUrl){
+                cell.imgMedia.kf.setImage(with: url)
+            }
+        } else if self.segmantedValue == "movie"{
+            cell.lblMediaName.text = item.longDescription ?? "No longDescription"
+            cell.lblArtistName.text = item.trackName ?? "No Track Name"
+            cell.imgMedia.kf.indicatorType = .activity
+            if let url = URL(string: item.artworkUrl){
+                cell.imgMedia.kf.setImage(with: url)
+            }
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

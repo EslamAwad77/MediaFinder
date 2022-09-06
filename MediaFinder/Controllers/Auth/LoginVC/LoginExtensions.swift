@@ -58,10 +58,27 @@ extension LoginVC {
         return true
     }
     
+    func matchingData(email: String, password: String) -> Bool {
+        guard (email == txtFieldEmail.text) else {
+            self.showAlert(message: "wrong email entered")
+            return false
+        }
+        guard (password == txtFieldPassword.text) else {
+            self.showAlert(message: "wrong password entered")
+            return false
+        }
+        return true
+    }
+    
      func loginTapped(){
         if isDataEntered(){
             if isDataValid(){
-                goToProfile()
+                if let user = SQlManager.sharedObject().getUserData(email: txtFieldEmail.text!) {
+                    if matchingData(email: txtFieldEmail.text!, password: user.password!) {
+                        UserDefaultsManager.shared().email = txtFieldEmail.text!
+                        goToProfile()
+                    }
+                }
             }
         }
     }

@@ -10,18 +10,30 @@ import UIKit
 
 
 extension ProfileVC {
-    
+    func getUserFromDB() {
+       self.user1 = SQlManager.sharedObject().getUserData(email: UserDefaultsManager.shared().email)
+   }
     func setup(){
         
         //UserDefaults.standard.set(isLogedIn, forKey: "isLogedIn")
-        UserDefaultsManager.shared.isLogedIn = true
-        if let user = UserDefaultsManager.shared.getUserDataFromCash(){
-            self.lblUserName.text = user.name
-            self.lblPhoneNumber.text = user.phone
-            self.lblAddress.text = user.address
-            self.imgViewUserProfile.image = user.userImage?.getImage()
-        }
+        UserDefaultsManager.shared().isLogedIn = true
+        getUserFromDB()
+        fillData()
+//        if let user = UserDefaultsManager.shared().getUserDataFromCash(){
+//            self.lblUserName.text = user.name
+//            self.lblPhoneNumber.text = user.phone
+//            self.lblAddress.text = user.address
+//            self.imgViewUserProfile.image = user.userImage?.getImage()
+//        }
        
+    }
+    
+    func fillData(){
+        lblUserName.text = user1.name
+        lblAddress.text = user1.address
+        lblPhoneNumber.text = user1.phone
+        imgViewUserProfile.image = user1.userImage!.getImage()
+
     }
     
     func setupNavItem(){

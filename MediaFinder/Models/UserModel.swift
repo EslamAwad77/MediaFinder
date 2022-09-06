@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class UserModel: Codable {
+struct UserModel: Codable {
     var name: String?
     var email: String?
     var password: String?
