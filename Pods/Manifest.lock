@@ -1,0 +1,56 @@
+PODS:
+  - Alamofire (5.6.1)
+  - CLTypingLabel (0.4.0)
+  - ESPullToRefresh (2.9.3)
+  - IQKeyboardManagerSwift (6.5.10)
+  - Kingfisher (7.3.0)
+  - MarqueeLabel (4.3.0)
+  - PullToRefresher (3.3)
+  - SDWebImage (5.13.2):
+    - SDWebImage/Core (= 5.13.2)
+  - SDWebImage/Core (5.13.2)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+  - SwiftyJSON (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - CLTypingLabel
+  - ESPullToRefresh
+  - IQKeyboardManagerSwift
+  - Kingfisher
+  - MarqueeLabel
+  - PullToRefresher
+  - SDWebImage
+  - SQLite.swift (~> 0.12.0)
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CLTypingLabel
+    - ESPullToRefresh
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - MarqueeLabel
+    - PullToRefresher
+    - SDWebImage
+    - SQLite.swift
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  CLTypingLabel: 95a7d1faf7e3d1d952cd11cb0491d17d80c50934
+  ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
+  MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
+  PullToRefresher: 6fc2ab6494caf949bcf6f0223ffd23f9d21a06f6
+  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+
+PODFILE CHECKSUM: 515f30bb603962c48199ef3e3be5a2552f38c934
+
+COCOAPODS: 1.11.3

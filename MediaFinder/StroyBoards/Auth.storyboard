@@ -284,7 +284,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10G-il-qYW">
-                                <rect key="frame" x="100" y="745" width="214" height="59"/>
+                                <rect key="frame" x="100" y="777" width="214" height="59"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="XHT-UL-wNX"/>
@@ -314,8 +314,8 @@
                         <viewLayoutGuide key="safeArea" id="PLx-zW-npB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="10G-il-qYW" firstAttribute="top" secondItem="jB1-on-xC6" secondAttribute="bottom" constant="609" id="3Il-z8-PBM"/>
                             <constraint firstItem="PLx-zW-npB" firstAttribute="trailing" secondItem="jB1-on-xC6" secondAttribute="trailing" constant="53" id="3jb-Ot-5hA"/>
+                            <constraint firstItem="10G-il-qYW" firstAttribute="centerY" secondItem="joh-P7-teE" secondAttribute="centerY" multiplier="1.8" id="6dl-hz-6Wd"/>
                             <constraint firstItem="Kde-ka-yN1" firstAttribute="trailing" secondItem="PLx-zW-npB" secondAttribute="trailing" id="82R-Dt-A9s"/>
                             <constraint firstItem="PLx-zW-npB" firstAttribute="trailing" secondItem="10G-il-qYW" secondAttribute="trailing" constant="100" id="C5w-GC-ZqY"/>
                             <constraint firstItem="Kde-ka-yN1" firstAttribute="top" secondItem="PLx-zW-npB" secondAttribute="top" id="Gt1-dz-4Uz"/>

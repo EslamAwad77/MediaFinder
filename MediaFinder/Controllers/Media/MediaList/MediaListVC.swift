@@ -63,6 +63,7 @@ extension MediaListVC{
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = false
+        self.mediaWillAppear()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -215,6 +216,8 @@ extension MediaListVC{
             self.mediaList = data.mediaData
             setupSegment(mediaType: data.mediaType ?? "all")
             self.tableView.reloadData()
+        }else {
+            startSearching(message: "Start searching")
         }
     }
 }
