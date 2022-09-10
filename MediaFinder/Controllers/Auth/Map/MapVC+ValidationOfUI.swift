@@ -36,7 +36,6 @@ extension MapVC {
     func checkForAuth(){
         switch CLLocationManager.authorizationStatus(){
         case .authorizedAlways, .authorizedWhenInUse:
-            //openOnCustomLocation()
             getCurrentUserLocation()
         case .restricted, .denied:
             print("can't get location without permissions")

@@ -12,79 +12,33 @@ extension RegisterVC{
         let loginVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
-//     func fillUserObject(){
-//        user1.name = txtFieldUserName.text!
-//        user1.email = txtFieldEmail.text!
-//        user1.password = txtFieldPassword.text!
-//        user1.phone = txtFieldPhoneNumber.text!
-//        user1.address = txtFieldAddress.text!
-//        user1.userImage = ImageCodable(withImage: imgViewUser.image!)
-//
-//    }
-    
+
     func encodeUserToData(user: UserModel) -> Data? {
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(user)
             return data
-
         } catch {
             print(error.localizedDescription)
         }
         return nil
     }
-    // func SetDataOnCashMemory(){
-        //UserDefaults.standard.set(txtFieldUserName.text, forKey: "UserName")
-//        UserDefaults.standard.set(txtFieldEmail.text, forKey: "UserEmail")
-//        UserDefaults.standard.set(txtFieldPassword.text, forKey: "UserPassword")
-//        UserDefaults.standard.set(txtFieldPhoneNumber.text, forKey: "UserPhone")
-//        UserDefaults.standard.set(txtFieldAddress.text, forKey: "UserAddress")
-//
-//        do{
-//            let jsonEncoder = JSONEncoder()
-//            let jsonData = try jsonEncoder.encode(user1)
-//            //let json = String(data: jsonData, encoding: .utf8) ?? "{}"
-//            UserDefaults.standard.set(jsonData, forKey: "user1")
-//            UserDefaults.standard.synchronize()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//         UserDefaultsManager.shared.SetDataOnCashMemory(user: user1)
-//    }
-    
-    
+
     func isDataValid() -> Bool {
-        guard invalidEmail(txtFieldEmail.text!)! else {
+        guard ValidationManager.singleton.invalidEmail(txtFieldEmail.text!)! else {
             self.showAlert(message: "please enter valid email")
             return false
-            
         }
-        guard invalidPassword(txtFieldPassword.text!)! else {
+        guard ValidationManager.singleton.invalidPassword(txtFieldPassword.text!)! else {
             self.showAlert(message: "please enter valid password")
             return false
-            
         }
-        guard invalidPhoneNumber(txtFieldPhoneNumber.text!)! else {
+        guard ValidationManager.singleton.invalidPhoneNumber(txtFieldPhoneNumber.text!)! else {
             self.showAlert(message: "please enter valid number")
             return false
-            
         }
         return true
     }
-    
-//
-//     func isDataEntered() -> Bool {
-//         if let name = txtFieldUserName.text, let email = txtFieldEmail.text, let password = txtFieldPassword.text, let phone = txtFieldPhoneNumber.text, let address = txtFieldAddress.text{
-//            if name != "" && email != "" && password != "" && phone != "" && address != "" {
-//
-//                return true
-//            } else {
-//               return false
-//            }
-//        } else {
-//            return false
-//        }
-//    }
     
     func isDataEntered() -> Bool {
         guard let name = txtFieldUserName.text, name != "" else{
@@ -112,8 +66,6 @@ extension RegisterVC{
      func registerTapped(){
         if isDataEntered(){
             if isDataValid(){
-                
-                //UserDefaultsManager.shared.SetDataOnCashMemory(user: user1)
                 let user = UserModel(name: txtFieldUserName.text!, email: txtFieldEmail.text!, password: txtFieldPassword.text!, phone: txtFieldPhoneNumber.text!, address: txtFieldAddress.text!, userImage: ImageCodable(withImage: imgViewUser.image!))
                 if let userData = encodeUserToData(user: user) {
                     SQlManager.sharedObject().insertUser(user: userData)
@@ -124,7 +76,5 @@ extension RegisterVC{
             print("please enter data")
         }
     }
-    
-    
 }
 

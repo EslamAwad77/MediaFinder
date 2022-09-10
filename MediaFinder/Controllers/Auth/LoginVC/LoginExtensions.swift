@@ -10,28 +10,10 @@ import UIKit
 
 
 extension LoginVC {
-    
-     func goToProfile(){
+    func goToProfile(){
         let profileVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "MediaListVC") as! MediaListVC
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
-    
-//     func isDataEntered() -> Bool {
-//        if let email = txtFieldEmail.text, let password = txtFieldPassword.text, email == self.email, password == self.password {
-//            if email != "" && password != "" {
-//                return true
-//                // profileVC.name = self.name
-//                // profileVC.email = self.email
-//                // profileVC.password = self.password
-//                // profileVC.phone = self.phone
-//                // profileVC.address = self.address
-//            } else {
-//                return false
-//            }
-//        } else {
-//            return false
-//        }
-//    }
     
     func isDataEntered() -> Bool {
         guard let email = txtFieldEmail.text , email != "" else {
@@ -43,14 +25,14 @@ extension LoginVC {
             return false
         }
         return true
-   }
+    }
     
     func isDataValid() -> Bool {
-        guard invalidEmail(txtFieldEmail.text!)! else {
+        guard ValidationManager.singleton.invalidEmail(txtFieldEmail.text!)! else {
             self.showAlert(message: "please enter valid email")
             return false
         }
-        guard invalidPassword(txtFieldPassword.text!)! else {
+        guard ValidationManager.singleton.invalidPassword(txtFieldPassword.text!)! else {
             self.showAlert(message: "please enter valid password")
             return false
         }
@@ -70,7 +52,7 @@ extension LoginVC {
         return true
     }
     
-     func loginTapped(){
+    func loginTapped(){
         if isDataEntered(){
             if isDataValid(){
                 if let user = SQlManager.sharedObject().getUserData(email: txtFieldEmail.text!) {

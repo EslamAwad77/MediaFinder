@@ -28,7 +28,6 @@ class MapVC: UIViewController {
     }
     
     @IBAction func btnSubmitLocation(_ sender: UIButton) {
-        //let address = lblShowNAmeOfLocation.text ?? ""
         delegate?.sendAddress(address: lblShowNAmeOfLocation.text!)
         self.navigationController?.popViewController(animated: true)
     }

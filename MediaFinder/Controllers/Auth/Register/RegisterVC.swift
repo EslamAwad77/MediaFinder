@@ -37,6 +37,7 @@ class RegisterVC: UIViewController {
     //-------------------LifeCycle------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        imgViewUser.roundedImage()
         self.navigationItem.title = "Sign Up"
     }
 }
@@ -45,8 +46,6 @@ extension RegisterVC: AddressDelegate {
     func sendAddress(address: String) {
         txtFieldAddress.text = address
     }
-    
-    
 }
 
 

@@ -13,24 +13,6 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    func invalidEmail(_ value: String) -> Bool?
-    {
-        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        return predicate.evaluate(with: value)
-    }
-    
-    func invalidPassword(_ value: String) -> Bool? {
-        let regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        return predicate.evaluate(with: value)
-    }
-    
-    func invalidPhoneNumber(_ value: String) -> Bool? {
-        let regex = "^[0-9]{11}$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        return predicate.evaluate(with: value)
-    }
     
     func startSearching(message: String) {
         let alert = UIAlertController(title: "Welcome to our app", message: message, preferredStyle: .alert)
@@ -38,6 +20,7 @@ extension UIViewController {
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
+    
     func continueSearching(message: String) {
         let alert = UIAlertController(title: "Didn't find what you need?", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Find it, play it!", style: .cancel, handler: nil)

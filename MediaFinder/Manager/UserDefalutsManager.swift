@@ -8,9 +8,7 @@
 import Foundation
 
 class UserDefaultsManager{
-    
     static let sharedInstance = UserDefaultsManager()
-    
     class func shared() -> UserDefaultsManager {
         return UserDefaultsManager.sharedInstance
     }
@@ -23,7 +21,6 @@ class UserDefaultsManager{
             
         }
     }
-
     var email: String {
         set {
             defaults.setValue(newValue, forKeyPath: "email")
@@ -35,31 +32,4 @@ class UserDefaultsManager{
             return defaults.string(forKey: "email")!
         }
     }
-    
-    func getUserDataFromCash() -> UserModel?{
-        if let data = UserDefaults.standard.data(forKey: "user1"){
-            do {
-                let jsonDecoder = JSONDecoder()
-                let userData = try jsonDecoder.decode(UserModel.self, from: data)
-                UserDefaults.standard.synchronize()
-                return userData
-
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        return nil
-    }
-
-    func SetDataOnCashMemory(user: UserModel){
-       do{
-           let jsonEncoder = JSONEncoder()
-           let jsonData = try jsonEncoder.encode(user)
-           //let json = String(data: jsonData, encoding: .utf8) ?? "{}"
-           UserDefaults.standard.set(jsonData, forKey: "user1")
-           UserDefaults.standard.synchronize()
-       } catch {
-           print(error.localizedDescription)
-       }
-   }
 }

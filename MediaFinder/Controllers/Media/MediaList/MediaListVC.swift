@@ -3,14 +3,11 @@
 //  MediaFinder
 //
 //  Created by eslam awad elsayed awad on 12/08/2022.
-
-
 import AVKit
 import PullToRefresh
 import ESPullToRefresh
 
 class MediaListVC: UIViewController {
-    
     //TODO: Data
     var mediaList = [Media]()
     var segmantedValue: String = "all"
@@ -29,26 +26,23 @@ class MediaListVC: UIViewController {
         loadingData()
         getAPI()
     }
+    
     @IBAction func btnGoProfile(_ sender: UIButton) {
         self.goToProfile()
-        
     }
+    
     @IBAction func segmantedController(_ sender: UISegmentedControl) {
         let segmantedIndex = sender.selectedSegmentIndex
         self.segmantedValue = sender.titleForSegment(at: segmantedIndex)?.lowercased() ?? "N/A"
         switch segmantedIndex {
         case 1:
             segmantedValue = "tvShow"
-            
         case 2:
             segmantedValue = "music"
-            
         case 3:
             segmantedValue = "movie"
-            
         default:
             segmantedValue = "all"
-                        
         }
         getAPI()
     }
@@ -134,7 +128,6 @@ extension MediaListVC{
 extension MediaListVC{
     func getAPI(){
         MediaAPI.loadMediaAPI(term: searchBar.text!, media: segmantedValue) { error, response in
-           
             if error != nil {
                 print(error!)
                 self.showError()
@@ -158,10 +151,6 @@ extension MediaListVC{
         }
     }
 }
-
-
-
-
 
 extension MediaListVC: UISearchBarDelegate{
 
@@ -236,31 +225,3 @@ extension MediaListVC {
         }
     }
 }
-
-
-// TODO: Image Bouncing
-//TODO: video
-
-
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){
-//        searchBar.endEditing(true)
-//        self.filteredMediaList = self.mediaList
-//    }
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-//        print("\(searchText)")
-//        filteredMediaList = []
-//        if searchText != "" {
-//           // filteredCategoriesSlides.append(contentsOf: categoriesSlides.filter({$0.categoryName.lowercased().contains(searchText.lowercased())}))
-//            for i in 0 ..< mediaList.count{
-//                let mediaObj = mediaList[i]
-//                if (mediaObj.trackName!.lowercased().contains(searchText.lowercased())){
-//                    filteredMediaList.append(mediaObj)
-//                }
-//            }
-//            self.tableView.reloadData()
-//        } else {
-//            self.filteredMediaList = mediaList
-//            self.tableView.reloadData()
-//        }
-//        print("filteredCategoriesSlides: \(filteredMediaList.count)")
-//    }

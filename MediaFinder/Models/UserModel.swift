@@ -4,8 +4,6 @@
 //
 //  Created by eslam awad elsayed awad on 27/06/2022.
 //
-
-import Foundation
 import UIKit
 
 struct UserModel: Codable {

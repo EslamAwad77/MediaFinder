@@ -19,6 +19,5 @@ struct Config {
     }
     struct UserDefaultsKeys{
         static let isLogedIn = "isLogedIn"
-        
     }
 }
