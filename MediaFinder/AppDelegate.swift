@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-//TODO: LifeCycle Of App Delegate
+
 extension AppDelegate{
     func handleRoot(){
         let email = UserDefaults.standard.object(forKey: "email")
