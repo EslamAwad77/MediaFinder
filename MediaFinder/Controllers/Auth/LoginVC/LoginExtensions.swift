@@ -10,7 +10,7 @@ import UIKit
 
 
 extension LoginVC {
-    func goToProfile(){
+    func goToMedia(){
         let profileVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "MediaListVC") as! MediaListVC
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
@@ -58,7 +58,7 @@ extension LoginVC {
                 if let user = SQlManager.sharedObject().getUserData(email: txtFieldEmail.text!) {
                     if matchingData(email: txtFieldEmail.text!, password: user.password!) {
                         UserDefaultsManager.shared().email = txtFieldEmail.text!
-                        goToProfile()
+                        goToMedia()
                     }
                 }
             }
