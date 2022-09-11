@@ -17,7 +17,7 @@ extension ProfileVC {
         lblUserName.text = user1.name
         lblAddress.text = user1.address
         lblPhoneNumber.text = user1.phone
-        imgViewUserProfile.image = user1.userImage!.getImage()
+        imgViewUserProfile.image = user1.userImage.getImage()
     }
     
     func getUserFromDB() {

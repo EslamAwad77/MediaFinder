@@ -4,9 +4,7 @@
 import UIKit
 
 class RegisterVC: UIViewController {
-    
     let imagePicker = UIImagePickerController()
-    let user1: UserModel = UserModel()
     
     //-------------------IBOutlet------------------------
     @IBOutlet weak var txtFieldUserName: UITextField!

@@ -7,12 +7,12 @@
 import UIKit
 
 struct UserModel: Codable {
-    var name: String?
-    var email: String?
-    var password: String?
-    var phone: String?
-    var address: String?
-    var userImage: ImageCodable?
+    var name: String
+    var email: String
+    var password: String
+    var phone: String
+    var address: String
+    var userImage: ImageCodable
 }
 
 struct ImageCodable: Codable {

@@ -20,7 +20,6 @@ class MapVC: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var lblShowNAmeOfLocation: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkOnServiceEnabled()

@@ -56,7 +56,7 @@ extension LoginVC {
         if isDataEntered(){
             if isDataValid(){
                 if let user = SQlManager.sharedObject().getUserData(email: txtFieldEmail.text!) {
-                    if matchingData(email: txtFieldEmail.text!, password: user.password!) {
+                    if matchingData(email: txtFieldEmail.text!, password: user.password) {
                         UserDefaultsManager.shared().email = txtFieldEmail.text!
                         goToMedia()
                     }

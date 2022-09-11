@@ -7,13 +7,20 @@ import AVKit
 
 extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        mediaList.count
+        if mediaList.count == 0 {
+            tableView.isHidden = true
+            imgNoData.isHidden = false
+            return 0
+        }
+        tableView.isHidden = false
+        imgNoData.isHidden = true
+        return mediaList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath) as! MediaCell
         let item = mediaList[indexPath.row]
-        if self.segmantedValue == "all"{
+        if segmantedValue == "all"{
             if item.longDescription == nil {
                 cell.lblMediaName.text = item.trackName ?? "No Track Name"
                 cell.lblArtistName.text = item.artistName ?? "No No artist Name"

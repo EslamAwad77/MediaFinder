@@ -25,8 +25,8 @@ class LoginVC: UIViewController {
     @IBAction func btnGoRegister(_ sender: UIButton) {
         let registerVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
         self.navigationController?.pushViewController(registerVC, animated: true)
-        // why we must to do push ??
     }
+    
     //-------------------lifecycle-----------------------
     override func viewDidLoad() {
         super.viewDidLoad()
