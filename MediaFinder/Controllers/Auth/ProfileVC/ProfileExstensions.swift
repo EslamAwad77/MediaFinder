@@ -7,10 +7,6 @@
 import UIKit
 
 extension ProfileVC {
-    func getUserFromDB() {
-        self.user1 = SQlManager.sharedObject().getUserData(email: UserDefaultsManager.shared().email)
-    }
-    
     func setup(){
         UserDefaultsManager.shared().isLogedIn = true
         getUserFromDB()
@@ -22,6 +18,10 @@ extension ProfileVC {
         lblAddress.text = user1.address
         lblPhoneNumber.text = user1.phone
         imgViewUserProfile.image = user1.userImage!.getImage()
+    }
+    
+    func getUserFromDB() {
+        self.user1 = SQlManager.sharedObject().getUserData(email: UserDefaultsManager.shared().email)
     }
     
     func setupNavItem(){

@@ -9,7 +9,7 @@ import ESPullToRefresh
 
 class MediaListVC: UIViewController {
     //TODO: Data
-    var mediaList = [Media]()
+    var mediaList: [Media] = []
     var segmantedValue: String = "all"
     
     //TODO: IBOutlet
@@ -67,12 +67,7 @@ extension MediaListVC{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        let media = MediaData(mediaType: segmantedValue, mediaData: mediaList)
-        guard let data = encodeMediaToData(media: media) else {
-            print("no data entered.")
-            return
-        }
-        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
+        self.mediaWillDisAppear()
     }
 }
 
@@ -205,9 +200,18 @@ extension MediaListVC{
             self.mediaList = data.mediaData
             setupSegment(mediaType: data.mediaType ?? "all")
             self.tableView.reloadData()
-        }else {
-            startSearching(message: "Start searching")
         }
+    }
+}
+
+extension MediaListVC {
+    private func mediaWillDisAppear(){
+        let media = MediaData(mediaType: segmantedValue, mediaData: mediaList)
+        guard let data = encodeMediaToData(media: media) else {
+            print("no data entered.")
+            return
+        }
+        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
     }
 }
 
