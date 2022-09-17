@@ -57,7 +57,12 @@ extension MediaListVC{
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = false
-        self.mediaWillAppear()
+        if let data = SQlManager.sharedObject().getMediaData(email: UserDefaultsManager.shared().email) {
+            self.mediaList = data.mediaData
+            setupSegment(mediaType: data.mediaType ?? "all")
+            self.tableView.reloadData()
+        }
+        print("data will apppear")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,7 +72,14 @@ extension MediaListVC{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.mediaWillDisAppear()
+        let media = MediaData(mediaType: segmantedValue, mediaData: mediaList)
+        guard let data = encodeMediaToData(media: media) else {
+            print("no data entered.")
+            return
+        }
+        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
+        print("data updated successfully")
+        
     }
 }
 
@@ -97,7 +109,7 @@ extension MediaListVC{
 extension MediaListVC{
     func loadingData(){
         self.activityLoadingPage.startAnimating()
-        self.tableView.alpha = 0
+        self.tableView.alpha = 1
         self.viewReloading.alpha = 0
     }
 }
@@ -120,8 +132,18 @@ extension MediaListVC{
     }
 }
 
+extension MediaListVC {
+    func activityLoading(){
+        activityLoadingPage.isHidden = false
+        activityLoadingPage.alpha = 1
+        activityLoadingPage.startAnimating()
+
+    }
+}
+
 extension MediaListVC{
     func getAPI(){
+        activityLoading()
         MediaAPI.loadMediaAPI(term: searchBar.text!, media: segmantedValue) { error, response in
             if error != nil {
                 print(error!)
@@ -192,27 +214,6 @@ extension MediaListVC{
         return nil
     }
     
-}
-
-extension MediaListVC{
-    private func mediaWillAppear() {
-        if let data = SQlManager.sharedObject().getMediaData(email: UserDefaultsManager.shared().email) {
-            self.mediaList = data.mediaData
-            setupSegment(mediaType: data.mediaType ?? "all")
-            self.tableView.reloadData()
-        }
-    }
-}
-
-extension MediaListVC {
-    private func mediaWillDisAppear(){
-        let media = MediaData(mediaType: segmantedValue, mediaData: mediaList)
-        guard let data = encodeMediaToData(media: media) else {
-            print("no data entered.")
-            return
-        }
-        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
-    }
 }
 
 extension MediaListVC {

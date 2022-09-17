@@ -63,7 +63,6 @@ class SQlManager {
         do {
             let decoder = JSONDecoder()
             let user = try decoder.decode(UserModel.self, from: userData)
-            
             return user
             
         } catch {
