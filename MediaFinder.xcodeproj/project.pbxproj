@@ -114,14 +114,6 @@
 			path = MediaList;
 			sourceTree = "<group>";
 		};
-		A85C4A0728BE85DF00764873 /* Launch */ = {
-			isa = PBXGroup;
-			children = (
-				A8F3F7CD28593DA40065BC92 /* LaunchScreen.storyboard */,
-			);
-			path = Launch;
-			sourceTree = "<group>";
-		};
 		A85C4A0828BE863800764873 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				A8B7D96A2865E21200F54F83 /* Auth.storyboard */,
-				A85C4A0728BE85DF00764873 /* Launch */,
-				A8F3F7CB28593DA40065BC92 /* Assets.xcassets */,
+				A8F3F7CD28593DA40065BC92 /* LaunchScreen.storyboard */,
 			);
 			path = StroyBoards;
 			sourceTree = "<group>";
@@ -284,12 +275,12 @@
 				A8F3F7C228593DA30065BC92 /* AppDelegate.swift */,
 				A85C4A0B28BE879A00764873 /* Manager */,
 				A85C4A0A28BE86F400764873 /* Utilites */,
-				A8B7D9702865E48300F54F83 /* Extensions */,
 				A8D6AC8E2897AB7000B51478 /* Networking */,
 				A8ED249928696FDB009A218A /* Models */,
 				A863DFDB286096CC00383B1E /* Controllers */,
 				A85C4A0828BE863800764873 /* Views */,
-				A863DFDA286096C100383B1E /* StroyBoards */,
+				E22DDCD428D611F0006425C2 /* Rersoures */,
+				A8B7D9702865E48300F54F83 /* Extensions */,
 				A8F3F7D028593DA40065BC92 /* Info.plist */,
 			);
 			path = MediaFinder;
@@ -301,6 +292,23 @@
 				09CB6C957B36E8109C226C07 /* Pods_MediaFinder.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E22DDCD328D611D2006425C2 /* Assest */ = {
+			isa = PBXGroup;
+			children = (
+				A8F3F7CB28593DA40065BC92 /* Assets.xcassets */,
+			);
+			path = Assest;
+			sourceTree = "<group>";
+		};
+		E22DDCD428D611F0006425C2 /* Rersoures */ = {
+			isa = PBXGroup;
+			children = (
+				E22DDCD328D611D2006425C2 /* Assest */,
+				A863DFDA286096C100383B1E /* StroyBoards */,
+			);
+			path = Rersoures;
 			sourceTree = "<group>";
 		};
 		FD62BD5FE7007709BC32F89F /* Pods */ = {

@@ -5,7 +5,6 @@
 //  Created by eslam awad elsayed awad on 05/07/2022.
 //
 
-import Foundation
 import MapKit
 
 extension CLPlacemark {
@@ -25,5 +24,4 @@ extension CLPlacemark {
         }
     return nil
     }
-    
 }

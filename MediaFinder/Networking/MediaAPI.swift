@@ -4,19 +4,19 @@
 //
 //  Created by eslam awad elsayed awad on 12/08/2022.
 //
-import Foundation
+
 import Alamofire
 
 class MediaAPI: NSObject {
     static func loadMediaAPI(term: String, media: String, completion: @escaping (_ error: Error?, _ response: [Media]?) -> Void){
-        let url = "https://itunes.apple.com/search?"
+        
         let parameters: [String: Any] = [
-            "term": term,
-            "media": media
+            Config.ParametersKeys.term: term,
+            Config.ParametersKeys.media: media
         ]
-        AF.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).response {
+        
+        AF.request(Config.URLs.base, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).response {
             response in
-            print(response.data?.description)
             
             guard response.error == nil else {
                 print("error \(response.error!)")

@@ -4,6 +4,8 @@
 import UIKit
 
 class RegisterVC: UIViewController {
+    
+    //-------------------Variables------------------------
     let imagePicker = UIImagePickerController()
     
     //-------------------IBOutlet------------------------
@@ -45,5 +47,3 @@ extension RegisterVC: AddressDelegate {
         txtFieldAddress.text = address
     }
 }
-
-

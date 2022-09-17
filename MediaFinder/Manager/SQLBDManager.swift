@@ -11,10 +11,10 @@ import SQLite
 class SQlManager {
     
     //MARK:- Singletone
-    private static let shared = SQlManager()
+    private static let sharedInstance = SQlManager()
     
-    static func sharedObject() -> SQlManager {
-        return SQlManager.shared
+    static func shared() -> SQlManager {
+        return SQlManager.sharedInstance
     }
     
     //MARK:- Variables

@@ -20,4 +20,11 @@ struct Config {
     struct UserDefaultsKeys{
         static let isLogedIn = "isLogedIn"
     }
+    struct URLs {
+        static let base = "https://itunes.apple.com/search?"
+    }
+    struct ParametersKeys {
+        static let term = "term"
+        static let media = "media"
+    }
 }

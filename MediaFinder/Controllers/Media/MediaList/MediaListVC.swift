@@ -3,16 +3,19 @@
 //  MediaFinder
 //
 //  Created by eslam awad elsayed awad on 12/08/2022.
+
 import AVKit
 import PullToRefresh
 import ESPullToRefresh
 
 class MediaListVC: UIViewController {
-    //TODO: Data
+    
+    //-------------------Variables------------------------
     var mediaList: [Media] = []
+    //TODO: Make type value to be Enum for easy use.
     var segmantedValue: String = "all"
     
-    //TODO: IBOutlet
+    //-------------------Outlet------------------------
     @IBOutlet weak var imgNoData: UIImageView!
     @IBOutlet weak var lblErrorDesc: UILabel!
     @IBOutlet weak var viewReloading: UIView!
@@ -21,7 +24,7 @@ class MediaListVC: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var controller: UISegmentedControl!
     
-    //TODO: IBAction
+    //-------------------Actions------------------------
     @IBAction func btnReloadingTapped(_ sender: UIButton) {
         loadingData()
         getAPI()
@@ -47,7 +50,8 @@ class MediaListVC: UIViewController {
         getAPI()
     }
 }
-//TODO: LifeCycle Of Screen
+
+//MARK:- LifeCycle Of Screen
 extension MediaListVC{
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -57,7 +61,7 @@ extension MediaListVC{
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = false
-        if let data = SQlManager.sharedObject().getMediaData(email: UserDefaultsManager.shared().email) {
+        if let data = SQlManager.shared().getMediaData(email: UserDefaultsManager.shared().email) {
             self.mediaList = data.mediaData
             setupSegment(mediaType: data.mediaType ?? "all")
             self.tableView.reloadData()
@@ -77,14 +81,15 @@ extension MediaListVC{
             print("no data entered.")
             return
         }
-        SQlManager.sharedObject().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
+        SQlManager.shared().updateMedia(email: UserDefaultsManager.shared().email, userMedia: data)
         print("data updated successfully")
         
     }
 }
 
+//MARK:- Private Methods
 extension MediaListVC{
-    func setupUI(){
+    private func setupUI(){
         UserDefaultsManager.shared().isLogedIn = true
         self.loadingData()
         self.pullTorefresh()
@@ -96,53 +101,73 @@ extension MediaListVC{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
     }
-}
-
-extension MediaListVC{
-    func goToProfile(){
+    private func goToProfile(){
         let profileVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
-}
-
-
-extension MediaListVC{
-    func loadingData(){
+    private func loadingData(){
         self.activityLoadingPage.startAnimating()
         self.tableView.alpha = 1
         self.viewReloading.alpha = 0
     }
-}
-
-extension MediaListVC{
-    func hideError(){
+    private func hideError(){
         self.tableView.alpha = 1
         self.viewReloading.alpha = 0
         self.activityLoadingPage.alpha = 0
         self.activityLoadingPage.isHidden = true
     }
-}
-extension MediaListVC{
-    func showError(){
+    private func showError(){
         self.tableView.alpha = 0
         self.viewReloading.alpha = 1
         self.imgNoData.alpha = 0
         self.activityLoadingPage.alpha = 0
         self.activityLoadingPage.isHidden = true
     }
-}
-
-extension MediaListVC {
-    func activityLoading(){
+    private func activityLoading(){
         activityLoadingPage.isHidden = false
         activityLoadingPage.alpha = 1
         activityLoadingPage.startAnimating()
-
+    }
+    private func pullTorefresh(){
+        //if refresh from Top
+        self.tableView.es.addPullToRefresh { [weak self] in
+            guard let self = self else{return}
+            self.getAPI()
+            print("top")
+        }
+        //if refresh from Bottom
+        self.tableView.es.addInfiniteScrolling { [weak self] in
+            guard let self = self else { return }
+            self.getAPI()
+        }
+    }
+    private func setupSegment(mediaType: String){
+        switch mediaType {
+        case "tvShow":
+            controller.selectedSegmentIndex = 1
+        case "music":
+            controller.selectedSegmentIndex = 2
+        case "movie":
+            controller.selectedSegmentIndex = 3
+        default:
+            controller.selectedSegmentIndex = 0
+        }
+    }
+    private func encodeMediaToData(media: MediaData) -> Data? {
+        do {
+            let encoder = JSONEncoder()
+            let mediaData = try encoder.encode(media)
+            return mediaData
+        } catch {
+            print("Unable to Encode mediaData (\(error))")
+        }
+        return nil
     }
 }
 
+//MARK:- API Calling
 extension MediaListVC{
-    func getAPI(){
+    private func getAPI(){
         activityLoading()
         MediaAPI.loadMediaAPI(term: searchBar.text!, media: segmantedValue) { error, response in
             if error != nil {
@@ -169,8 +194,8 @@ extension MediaListVC{
     }
 }
 
+//MARK:- UISearchBarDelegate
 extension MediaListVC: UISearchBarDelegate{
-
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         self.mediaList.removeAll()
@@ -182,51 +207,6 @@ extension MediaListVC: UISearchBarDelegate{
         searchBar.resignFirstResponder()
         if (searchBar.text?.count ?? 0) >= 3 {
             getAPI()
-        }
-    }
-}
-
-extension MediaListVC {
-    func pullTorefresh(){
-        //TODO: if refresh from Top
-        self.tableView.es.addPullToRefresh { [weak self] in
-            guard let self = self else{return}
-            self.getAPI()
-            print("top")
-        }
-        //TODO: if refresh from Bottom
-        self.tableView.es.addInfiniteScrolling { [weak self] in
-            guard let self = self else { return }
-            self.getAPI()
-        }
-    }
-}
-
-extension MediaListVC{
-    private func encodeMediaToData(media: MediaData) -> Data? {
-        do {
-            let encoder = JSONEncoder()
-            let mediaData = try encoder.encode(media)
-            return mediaData
-        } catch {
-            print("Unable to Encode mediaData (\(error))")
-        }
-        return nil
-    }
-    
-}
-
-extension MediaListVC {
-    private func setupSegment(mediaType: String){
-        switch mediaType {
-        case "tvShow":
-            controller.selectedSegmentIndex = 1
-        case "music":
-            controller.selectedSegmentIndex = 2
-        case "movie":
-            controller.selectedSegmentIndex = 3
-        default:
-            controller.selectedSegmentIndex = 0
         }
     }
 }
