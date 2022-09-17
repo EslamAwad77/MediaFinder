@@ -7,21 +7,12 @@
 import UIKit
 
 extension ProfileVC {
+    
+    //MARK:- Public Methods
     func setup(){
         UserDefaultsManager.shared().isLogedIn = true
         getUserFromDB()
         fillData()
-    }
-    
-    func fillData(){
-        lblUserName.text = user1.name
-        lblAddress.text = user1.address
-        lblPhoneNumber.text = user1.phone
-        imgViewUserProfile.image = user1.userImage.getImage()
-    }
-    
-    func getUserFromDB() {
-        self.user1 = SQlManager.sharedObject().getUserData(email: UserDefaultsManager.shared().email)
     }
     
     func setupNavItem(){
@@ -30,7 +21,19 @@ extension ProfileVC {
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.black
     }
     
-    @objc func dismissSelf(){
+    //MARK:- Private Methods
+    private func fillData(){
+        lblUserName.text = user1.name
+        lblAddress.text = user1.address
+        lblPhoneNumber.text = user1.phone
+        imgViewUserProfile.image = user1.userImage.getImage()
+    }
+    
+    private func getUserFromDB() {
+        self.user1 = SQlManager.shared().getUserData(email: UserDefaultsManager.shared().email)
+    }
+    
+    @objc private func dismissSelf(){
         isLogedIn = false
         let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDel.goToLoginVC()

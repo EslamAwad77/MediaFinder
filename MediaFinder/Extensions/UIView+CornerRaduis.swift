@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 extension UIView {
     @IBInspectable var cornerRaduis: CGFloat {
         get{
@@ -15,4 +16,3 @@ extension UIView {
         }
     }
 }
-

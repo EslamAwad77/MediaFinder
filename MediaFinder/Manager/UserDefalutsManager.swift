@@ -8,11 +8,17 @@
 import Foundation
 
 class UserDefaultsManager{
+    
+    //MARK:- Singletone
     static let sharedInstance = UserDefaultsManager()
+    
     class func shared() -> UserDefaultsManager {
         return UserDefaultsManager.sharedInstance
     }
+    
+    //MARK:- Propreties
     private let defaults = UserDefaults.standard
+    
     var isLogedIn: Bool{
         set{
             UserDefaults.standard.setValue(newValue, forKey: Config.UserDefaultsKeys.isLogedIn)

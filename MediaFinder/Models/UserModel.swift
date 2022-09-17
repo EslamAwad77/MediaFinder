@@ -28,4 +28,3 @@ struct ImageCodable: Codable {
         return image
     }
 }
-

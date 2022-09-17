@@ -5,7 +5,8 @@
 
 import AVKit
 
-extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
+extension MediaListVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if mediaList.count == 0 {
             tableView.isHidden = true
@@ -16,10 +17,10 @@ extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
         imgNoData.isHidden = true
         return mediaList.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath) as! MediaCell
         let item = mediaList[indexPath.row]
+        //TODO: Move them to the Cell File
         if segmantedValue == "all"{
             if item.longDescription == nil {
                 cell.lblMediaName.text = item.trackName ?? "No Track Name"
@@ -68,6 +69,7 @@ extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
         }
         return cell
     }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let myCell = cell as? MediaCell
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
@@ -83,6 +85,7 @@ extension MediaListVC: UITableViewDelegate, UITableViewDataSource{
         }
     }
     
+    //MARK:- Private Methods
     private func privewUrlPlayer(_ sringUrl: String){
         guard let url = URL(string: sringUrl) else {return}
         let player = AVPlayer(url: url)

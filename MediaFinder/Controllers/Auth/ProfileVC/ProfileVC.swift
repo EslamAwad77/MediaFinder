@@ -5,22 +5,22 @@
 //  Created by eslam awad elsayed awad on 24/06/2022.
 //
 
-import UIKit
 import CLTypingLabel
 import MarqueeLabel
 
 class ProfileVC: UIViewController {
-    //-------------------variables------------------------
+    
+    //-------------------Variables------------------------
     var isLogedIn: Bool = true
     var user1: UserModel!
     
-    //-------------------outlet------------------------
+    //-------------------Outlet------------------------
     @IBOutlet weak var imgViewUserProfile: UIImageView!
     @IBOutlet weak var lblUserName: MarqueeLabel!
     @IBOutlet weak var lblPhoneNumber: CLTypingLabel!
     @IBOutlet weak var lblAddress: UILabel!
     
-    //-------------------lifecycle------------------------
+    //-------------------Lifecycle------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavItem()

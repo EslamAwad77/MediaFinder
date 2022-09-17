@@ -9,7 +9,7 @@ import UIKit
 
 class LoginVC: UIViewController {
     
-    //-------------------variables------------------------
+    //-------------------Variables------------------------
     var email: String!
     var password: String!
 
@@ -34,7 +34,7 @@ class LoginVC: UIViewController {
     }
     
     //-------------------functions-----------------------
-     func setup(){
+    private func setup(){
         self.navigationItem.title = "Sign In"
          UserDefaultsManager.shared().isLogedIn = false
     }
